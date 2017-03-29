@@ -64,18 +64,34 @@ store.dispatch(
             id: "1",
             type: "LineChartWidget",
             settings: {
-                dataStore: "data-systembolaget-sortiment",
-                groupBy: [{ field: "Argang" }, { field: "Forpackning" }],
-                queries: [{ name: "AVG", aggregation: "AVG", field: "Alkoholhalt" }, { name: "MAX", aggregation: "MAX", field: "Alkoholhalt" }]
+                dataStore: "jenkins-emca-ide-kpi-test",
+                groupBy: [{ field: "_time", interval: "1day" }],
+                queries: [{ name: "importSmallProjectTest", aggregation: "AVG", field: "duration", filter: { logic: "AND", filters: [{field: "testName", operator: "EQ", value: "importSmallProjectTest"}]}},
+ 			  { name: "importMediumProjectTest", aggregation: "AVG", field: "duration", filter: { logic: "AND", filters: [{field: "testName", operator: "EQ", value: "importMediumProjectTest"}]}},
+ 			  { name: "importLargeProjectTest", aggregation: "AVG", field: "duration", filter: { logic: "AND", filters: [{field: "testName", operator: "EQ", value: "importLargeProjectTest"}]}},
+ 			  { name: "Unknown6", aggregation: "AVG", field: "duration", filter: { logic: "AND", filters: [{field: "testName", operator: "EQ", value: "indexSmallProjectTest"}]}},
+ 			  { name: "indexMediumTest", aggregation: "AVG", field: "duration", filter: { logic: "AND", filters: [{field: "testName", operator: "EQ", value: "indexMediumTest"}]}},
+ 			  { name: "Unknown1", aggregation: "AVG", field: "duration", filter: { logic: "AND", filters: [{field: "testName", operator: "EQ", value: "IndexLargeProjectTest"}]}},
+ 			  { name: "Unknown2", aggregation: "AVG", field: "duration", filter: { logic: "AND", filters: [{field: "testName", operator: "EQ", value: "IndexLargeProjectTest"}]}},
+ 			  { name: "Unknown3", aggregation: "AVG", field: "duration", filter: { logic: "AND", filters: [{field: "testName", operator: "EQ", value: "IndexLargeProjectTest"}]}},
+ 			  { name: "Unknown4", aggregation: "AVG", field: "duration", filter: { logic: "AND", filters: [{field: "testName", operator: "EQ", value: "IndexLargeProjectTest"}]}},
+ 			  { name: "scrollLargeFileTest", aggregation: "AVG", field: "duration", filter: { logic: "AND", filters: [{field: "testName", operator: "EQ", value: "scrollLargeFileTest"}]}},
+ 			  { name: "StartUpPackagesInstalled", aggregation: "AVG", field: "duration", filter: { logic: "AND", filters: [{field: "testName", operator: "EQ", value: "StartUpPackagesInstalled"}]}},
+ 			  { name: "StartUpFromScratch", aggregation: "AVG", field: "duration", filter: { logic: "AND", filters: [{field: "testName", operator: "EQ", value: "StartUpFromScratch"}]}}
+			 ],
+		filter: {
+		    logic: "AND",
+		    filters: []
+  		}
             }
         },
         {
             id: "2",
             type: "PieChartWidget",
             settings: {
-                dataStore: "data-systembolaget-sortiment",
-                groupBy: [{ field: "Argang" }],
-                queries: [{ name: "UNIQUE", aggregation: "UNIQUE", field: "Leverantor" }]
+                dataStore: "jenkins-emca-ide-kpi-test",
+                groupBy: [{ field: "server" }],
+                queries: [{ name: "Servers", aggregation: "UNIQUE", field: "server" }]
             }
         }
     ]
