@@ -31,7 +31,8 @@ function mapStoreToProps(store) {
 
 const widgetMappings = {
     "BarChartWidget": EchartsWidget({ type: "bar", yAxis: { type: "log" } }),
-    "LineChartWidget": LineChartWidget,
+    "LineChartWidgetLog": EchartsWidget({ type: "line", yAxis: { type: "log" } }),
+    "LineChartWidget": EchartsWidget({ type: "line"}),
     "PieChartWidget": PieChartWidget,
     "ScatterChartWidget": ScatterChartWidget,
     "SimpleAggregationTable": SimpleAggregationTable,

@@ -32,7 +32,31 @@ store.dispatch(
                 h: 4,
                 w: 4,
                 i: "2"
-            }],
+            }, {
+		x: 8,
+		y: 4,
+		h: 4,
+		w: 4,
+		i: "3"
+	    }, {
+                x: 0,
+                y: 4,
+                h: 4,
+                w: 8,
+                i: "4"
+  	    }, {
+                x: 0,
+                y: 8,
+                h: 4,
+                w: 8,
+                i: "5"
+  	    }, {
+                x: 8,
+                y: 8,
+                h: 4,
+                w: 4,
+                i: "6"
+  	    }],
             sm: [{
                 x: 0,
                 y: 0,
@@ -62,19 +86,16 @@ store.dispatch(
         },
         widgets: [{
             id: "1",
-            type: "LineChartWidget",
+            type: "LineChartWidgetLog",
             settings: {
-                dataStore: "jenkins-emca-ide-kpi-test",
+                dataStore: "jenkins-emca-ide-kpi",
                 groupBy: [{ field: "_time", interval: "1day" }],
                 queries: [{ name: "importSmallProjectTest", aggregation: "AVG", field: "duration", filter: { logic: "AND", filters: [{field: "testName", operator: "EQ", value: "importSmallProjectTest"}]}},
  			  { name: "importMediumProjectTest", aggregation: "AVG", field: "duration", filter: { logic: "AND", filters: [{field: "testName", operator: "EQ", value: "importMediumProjectTest"}]}},
  			  { name: "importLargeProjectTest", aggregation: "AVG", field: "duration", filter: { logic: "AND", filters: [{field: "testName", operator: "EQ", value: "importLargeProjectTest"}]}},
- 			  { name: "Unknown6", aggregation: "AVG", field: "duration", filter: { logic: "AND", filters: [{field: "testName", operator: "EQ", value: "indexSmallProjectTest"}]}},
+ 			  { name: "indexSmallTest", aggregation: "AVG", field: "duration", filter: { logic: "AND", filters: [{field: "testName", operator: "EQ", value: "indexSmallTest"}]}},
  			  { name: "indexMediumTest", aggregation: "AVG", field: "duration", filter: { logic: "AND", filters: [{field: "testName", operator: "EQ", value: "indexMediumTest"}]}},
- 			  { name: "Unknown1", aggregation: "AVG", field: "duration", filter: { logic: "AND", filters: [{field: "testName", operator: "EQ", value: "IndexLargeProjectTest"}]}},
- 			  { name: "Unknown2", aggregation: "AVG", field: "duration", filter: { logic: "AND", filters: [{field: "testName", operator: "EQ", value: "IndexLargeProjectTest"}]}},
- 			  { name: "Unknown3", aggregation: "AVG", field: "duration", filter: { logic: "AND", filters: [{field: "testName", operator: "EQ", value: "IndexLargeProjectTest"}]}},
- 			  { name: "Unknown4", aggregation: "AVG", field: "duration", filter: { logic: "AND", filters: [{field: "testName", operator: "EQ", value: "IndexLargeProjectTest"}]}},
+ 			  { name: "indexLargeTest", aggregation: "AVG", field: "duration", filter: { logic: "AND", filters: [{field: "testName", operator: "EQ", value: "indexLargeTest"}]}},
  			  { name: "scrollLargeFileTest", aggregation: "AVG", field: "duration", filter: { logic: "AND", filters: [{field: "testName", operator: "EQ", value: "scrollLargeFileTest"}]}},
  			  { name: "StartUpPackagesInstalled", aggregation: "AVG", field: "duration", filter: { logic: "AND", filters: [{field: "testName", operator: "EQ", value: "StartUpPackagesInstalled"}]}},
  			  { name: "StartUpFromScratch", aggregation: "AVG", field: "duration", filter: { logic: "AND", filters: [{field: "testName", operator: "EQ", value: "StartUpFromScratch"}]}}
@@ -89,11 +110,65 @@ store.dispatch(
             id: "2",
             type: "PieChartWidget",
             settings: {
-                dataStore: "jenkins-emca-ide-kpi-test",
-                groupBy: [{ field: "server" }],
-                queries: [{ name: "Servers", aggregation: "UNIQUE", field: "server" }]
+                dataStore: "jenkins-emca-ide-kpi",
+                groupBy: [{ field: "groupId" }],
+                queries: [{ name: "Categories", aggregation: "UNIQUE", field: "testName" }]
             }
-        }
+        },
+	{
+            id: "3",
+            type: "PieChartWidget",
+            settings: {
+             dataStore: "jenkins-emca-ide-kpi",
+              groupBy: [{ field: "server" }],
+               queries: [{ name: "Servers", aggregation: "UNIQUE", field: "server" }]
+            }
+        },
+	{
+            id: "4",
+            type: "LineChartWidget",
+            settings: {
+                dataStore: "jenkins-emca-ide-kpi",
+                groupBy: [{ field: "_time", interval: "1day" }],
+                queries: [{ name: "importSmallProjectTest", aggregation: "AVG", field: "duration", filter: { logic: "AND", filters: [{field: "testName", operator: "EQ", value: "importSmallProjectTest"}]}},
+ 			  { name: "importMediumProjectTest", aggregation: "AVG", field: "duration", filter: { logic: "AND", filters: [{field: "testName", operator: "EQ", value: "importMediumProjectTest"}]}},
+ 			  { name: "importLargeProjectTest", aggregation: "AVG", field: "duration", filter: { logic: "AND", filters: [{field: "testName", operator: "EQ", value: "importLargeProjectTest"}]}},
+ 			  { name: "indexSmallTest", aggregation: "AVG", field: "duration", filter: { logic: "AND", filters: [{field: "testName", operator: "EQ", value: "indexSmallTest"}]}},
+ 			  { name: "indexMediumTest", aggregation: "AVG", field: "duration", filter: { logic: "AND", filters: [{field: "testName", operator: "EQ", value: "indexMediumTest"}]}},
+ 			  { name: "indexLargeTest", aggregation: "AVG", field: "duration", filter: { logic: "AND", filters: [{field: "testName", operator: "EQ", value: "indexLargeTest"}]}},
+ 			  { name: "scrollLargeFileTest", aggregation: "AVG", field: "duration", filter: { logic: "AND", filters: [{field: "testName", operator: "EQ", value: "scrollLargeFileTest"}]}},
+ 			  { name: "StartUpPackagesInstalled", aggregation: "AVG", field: "duration", filter: { logic: "AND", filters: [{field: "testName", operator: "EQ", value: "StartUpPackagesInstalled"}]}},
+ 			  { name: "StartUpFromScratch", aggregation: "AVG", field: "duration", filter: { logic: "AND", filters: [{field: "testName", operator: "EQ", value: "StartUpFromScratch"}]}}
+			 ],
+		filter: {
+		    logic: "AND",
+		    filters: []
+  		}
+            }
+        },
+	{
+            id: "5",
+            type: "BarChartWidget",
+            settings: {
+                dataStore: "applications-eclipse-freeze",
+                groupBy: [{field: "UserName"}],
+		sortDescription: [{field: "FreezeLasted", sortOrder: "DESC"}],
+                queries: [{ name: "freeze > 40s", aggregation: "CNT", field: "FreezeLasted", filter: { logic: "AND", filters: [{ field: "FreezeLasted", operator: "GT", value: 40000 }]}}],
+		filter: {
+		    logic: "AND",
+		    filters: []
+  		}
+            }
+        },
+	{
+            id: "6",
+            type: "PieChartWidget",
+            settings: {
+             dataStore: "applications-eclipse-freeze",
+              groupBy: [{ field: "HostName" }],
+               queries: [{ name: "Freeze/Server", aggregation: "UNIQUE", field: "FreezeLasted", filter: { logic: "AND", filters: [{ field: "HostName", operator: "STARTSWITH", value: "esekilxv769"}]}}]
+            }
+        },
     ]
     })
 );
