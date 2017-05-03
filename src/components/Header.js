@@ -5,7 +5,7 @@ class Header extends Component {
         return (
             <div>
                 <center>
-                    <img src="https://raygun.com/blog/wp-content/uploads/2016/05/nodejs-logo.png" />
+                    <img src={require('../resources/nodejs-logo.png')} />
                 </center>
             </div>    
         );

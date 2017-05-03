@@ -9,7 +9,7 @@ class News extends Component {
         return (
             <div>
                 <div className="jumbotron">
-                    <h2>Home</h2>
+                    <h3>Welcome</h3>
                 </div>
             </div>
         );
