@@ -1,16 +1,15 @@
 import React, { Component } from "react";
-
-
+import { Link } from "react-router-dom";
 
 class TopMenu extends Component {
     render() {
         return (
             <div>
                 <ul className="nav nav-pills nav-justified">
-                    <li className="presentation">Home</li>
-                    <li className="presentation"><a href="">News</a></li>
-                    <li className="presentation"><a href="">About</a></li>
-                    <li className="presentation"><a href="">Contact</a></li>
+                    <li><Link to="/">Home</Link></li>
+                    <li><Link to="/news">News</Link></li>
+                    <li><Link to="/about">About</Link></li>
+                    <li><Link to="/contact">Contact</Link></li>
                 </ul>
             </div>
         );

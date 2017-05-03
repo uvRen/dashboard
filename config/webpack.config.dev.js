@@ -81,7 +81,6 @@ module.exports = {
       'material-ui': path.resolve('./node_modules/material-ui'),
       'moment-timezone': path.resolve('./node_modules/moment-timezone'),
       "echarts": path.resolve('./node_modules/echarts'),
-      "inovia-api-client": path.resolve('./node_modules/inovia-api-client')
     }
   },
 
