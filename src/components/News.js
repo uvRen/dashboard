@@ -1,24 +1,46 @@
+var data = require('../../public/data.json');
 import React, { Component } from 'react';
+import Select from 'react-select';
+import _ from "lodash";
+import 'react-select/dist/react-select.css';
+var fs = require("fs");
 
-
-class Home extends Component {
+class News extends Component {
     constructor() {
         super();
         var self = this;
         this.state = {
             data: {
+                name: "",
                 host: "",
                 port: "",
+                location: ""
+            },
+            addDevice: {
                 name: "",
-                location: "",
-            }
-            
+                host: "",
+                port: "",
+                location: ""
+            },
+            options: [],
+            text: "Welcome",
+            selectedDevice: "",
+            selectedName: "Device name",
+            selectedHost: "Hostname or IP",
+            selectedPort: "Port",
+            selectedLocation: "Location"
         }
     }
 
     // If you want something to be executed when the component is loaded for the first time
     componentDidMount() {
-
+        var options = [];
+        _.forEach(data.devices, function(key,value) {
+            var id = key.id;
+            var name = key.name;
+            options.push({ value: id, label: name, object: key});
+        });
+        this.setState({ options: options, selectedValue: options[0].value});
     }
 
     // If you want something to be executed when the component is updated
@@ -50,15 +72,61 @@ class Home extends Component {
         console.log(JSON.stringify(this.state.data));
     }
 
+    changeSelect(val) {
+        var sel = val.object;
+        this.setState({
+            selectedValue: val.value,
+            selectedName: sel.name,
+            selectedHost: sel.host,
+            selectedLocation: sel.location,
+            selectedPort: sel.port
+        });
+    }
+
+    addDevice() {
+        console.log(data);
+        var newData = { devices: [] };
+        newData.devices.push(this.state.addDevice);
+        
+        _.forEach(data.devices, function(val) {
+            newData.devices.push(val);
+        });
+        console.log(JSON.stringify(newData));
+        fs.writeFile("../../public/data1.json", JSON.stringify(newData), 'utf8', (err) => {
+            if(err) throw err;
+            console.log("Success");
+        })
+    }
+
+    // Update state with the value that the user is typing 
+    // Data fetched from "Add a device" - form
+    updateInputValue(val) {
+        const { target } = val;
+        switch(target.name) {
+            case "name":
+                this.setState({ addDevice: { ...this.state.addDevice, name: target.value } });
+                break;
+            case "host":
+                this.setState({ addDevice: { ...this.state.addDevice, host: target.value } });
+                break;
+            case "port":
+                this.setState({ addDevice: { ...this.state.addDevice, port: target.value } });
+                break;
+            case "location":
+                this.setState({ addDevice: { ...this.state.addDevice, location: target.value } });
+                break;
+        }
+    }
+
     // Render component
     render() {
+        var divStyleOuter = {
+            textAlign: "center"
+        }
         var divStyleInner = {
             width: "50%",
             align: "center",
-            display: "inline-block",
-        };
-        var divStyleOuter = {
-            "text-align": "center",
+            display: "inline-block"
         }
 
         return (
@@ -69,35 +137,77 @@ class Home extends Component {
                     </center>
                 </div>
                 <br /><br />
-                <div style={divStyleOuter}> 
-                    <div style={divStyleInner}>
-                        <div className="input-group">
-                            <input id="textfieldHost" onChange={this.handleTextFieldChange.bind(this)} type="text" className="form-control" placeholder="Hostname or IP" aria-describedby="basic-addon1"></input>
-                            <span className="input-group-addon" id="basic-addon1">@</span>
-                            <input id="textfieldPort" onChange={this.handleTextFieldChange.bind(this)} type="text" className="form-control" placeholder="Port" aria-describedby="basic-addon1" ></input>
+                <div className="row">
+                  <div className="col-md-12">
+                    <div className="thumbnail">
+                      <div className="caption">
+                        <h3>Select a device</h3>
+                            <Select name="my-dropdown" value={this.state.selectedValue} options={this.state.options} onChange={this.changeSelect.bind(this)}/>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-md-6">
+                    <div className="thumbnail">
+                      <div className="caption">
+                        <h3>Add a device</h3>
+                            <div className="input-group">
+                            <input id="name" name="name" onChange={this.updateInputValue.bind(this)} className="form-control" placeholder="Device name"></input>
                             <span className="input-group-addon"></span>
                         </div>
-                        <br />
                         <div className="input-group">
-                            <input id="textfieldName" onChange={this.handleTextFieldChange.bind(this)} type="text" className="form-control" placeholder="Device name" aria-describedby="basic-addon2"></input>
+                            <input id="host" name="host" onChange={this.updateInputValue.bind(this)} className="form-control" placeholder="Hostname or IP"></input>
                             <span className="input-group-addon"></span>
                         </div>
-                        <br />
                         <div className="input-group">
-                            <input id="textfieldLocation" onChange={this.handleTextFieldChange.bind(this)} type="text" className="form-control" placeholder="Location"></input>
+                            <input id="port" name="port" onChange={this.updateInputValue.bind(this)} className="form-control" placeholder="Port"></input>
                             <span className="input-group-addon"></span>
                         </div>
-                        <br />
-                        <div className="btn-group btn-group-justified" role="group">
+                        <div className="input-group">
+                            <input id="location" name="location" onChange={this.updateInputValue.bind(this)} className="form-control" placeholder="Location"></input>
+                            <span className="input-group-addon"></span>
+                        </div>
+                        <div className="btn-group btn-group-justified">
                             <div className="btn-group">
-                                <button onClick={this.submit.bind(this)} className="btn btn-default">Save</button>
+                                <input type="submit" onClick={this.addDevice.bind(this)} value="Add" name="submit" className="btn btn-default"></input>
                             </div>
                         </div>
+                      </div>
                     </div>
+                  </div>
+                  <div className="col-md-6">
+                    <div className="thumbnail">
+                      <div className="caption">
+                        <h3>Update data for a device</h3>
+                        <div className="input-group">
+                            <input id="textfieldName" onChange={this.handleTextFieldChange.bind(this)} type="text" className="form-control" placeholder={this.state.selectedName} aria-describedby="basic-addon2"></input>
+                            <span className="input-group-addon"></span>
+                        </div>
+                        <div className="input-group">
+                            <input id="textfieldHost" onChange={this.handleTextFieldChange.bind(this)} type="text" className="form-control" placeholder={this.state.selectedHost} aria-describedby="basic-addon1"></input>
+                            <span className="input-group-addon"></span>
+                        </div>
+                        <div className="input-group">
+                            <input id="textfieldPort" onChange={this.handleTextFieldChange.bind(this)} type="text" className="form-control" placeholder={this.state.selectedPort} aria-describedby="basic-addon1" ></input>
+                            <span className="input-group-addon"></span>
+                        </div>
+                        <div className="input-group">
+                            <input id="textfieldLocation" onChange={this.handleTextFieldChange.bind(this)} type="text" className="form-control" placeholder={this.state.selectedLocation}></input>
+                            <span className="input-group-addon"></span>
+                        </div>
+                        <div className="btn-group btn-group-justified">
+                            <div className="btn-group">
+                                <input type="submit" value="Update" name="submit" className="btn btn-default"></input>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
             </div>
         );
     }
 }
 
-export default (Home);
+export default (News);

@@ -1,8 +1,18 @@
 import React, { Component } from 'react';
 
-class News extends Component {
+class Home extends Component {
     constructor(props) {
         super();
+    }
+
+    componentDidMount() {
+        var simon = [];
+        simon.push(["a", "b", "c"]);
+        simon.push(["d", "e", "f"]);
+        simon.push(["g", "h", "i"]);
+        simon.push(["j", "k", "l"]);
+        simon[0][0] = "abbe";
+        console.log(simon[0][0]);
     }
 
     render() {
@@ -16,4 +26,4 @@ class News extends Component {
     }
 }
 
-export default (News);
+export default (Home);
