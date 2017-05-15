@@ -1,0 +1,25 @@
+{
+	"devices": [
+		{
+			"id": 0,
+			"name": "A",
+			"location": "Cyprus",
+			"host": "192.168.1.23",
+			"port": 1111
+		},
+		{
+			"id": 1,
+			"name": "B",
+			"location": "Sweden",
+			"host": "192.168.2.123",
+			"port": 2222
+		},
+		{
+			"id": 2,
+			"name": "C",
+			"location": "Spain",
+			"host": "192.168.3.145",
+			"port": 3333
+		}
+	]
+}

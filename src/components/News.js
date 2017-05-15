@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import Select from 'react-select';
 import _ from "lodash";
 import 'react-select/dist/react-select.css';
-var fs = require("fs");
 
 class News extends Component {
     constructor() {
@@ -120,15 +119,6 @@ class News extends Component {
 
     // Render component
     render() {
-        var divStyleOuter = {
-            textAlign: "center"
-        }
-        var divStyleInner = {
-            width: "50%",
-            align: "center",
-            display: "inline-block"
-        }
-
         return (
             <div>
                 <div className="jumbotron">
@@ -137,6 +127,8 @@ class News extends Component {
                     </center>
                 </div>
                 <br /><br />
+
+                // ComboBox to select a device
                 <div className="row">
                   <div className="col-md-12">
                     <div className="thumbnail">
@@ -147,6 +139,8 @@ class News extends Component {
                     </div>
                   </div>
                 </div>
+
+                // Form to add a device
                 <div className="row">
                   <div className="col-md-6">
                     <div className="thumbnail">
@@ -176,6 +170,8 @@ class News extends Component {
                       </div>
                     </div>
                   </div>
+
+                  // Form that display data about a selected device
                   <div className="col-md-6">
                     <div className="thumbnail">
                       <div className="caption">
